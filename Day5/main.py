@@ -1,8 +1,9 @@
-FILENAME = "sample_input.txt"
-#FILENAME = "input.txt"
+# FILENAME = "sample_input.txt"
+FILENAME = "input.txt"
 
 import time
 import utils
+import hashlib
 
 
 def main():
@@ -30,19 +31,39 @@ def main():
 
 def parse_data():
     with open(FILENAME, "r") as f:
-        data = f.readlines()
+        data = f.readline().strip()
 
     # return utils.grid_parse(data)
 
-    return 
+    return data
 
 
 def part1(data):
-    return None
+    password = ""
+    for i in range(1000000000):
+        hash = hashlib.md5((data+str(i)).encode())
+        m = hash.hexdigest()
+        if m[0:5] == "00000":
+            password += m[5]
+        if len(password) == 8:
+            break
+    return password
 
 
 def part2(data):
-    return None
+    chars = 0
+    password = ["#" for _ in range(8)]
+    for i in range(1000000000):
+        hash = hashlib.md5((data+str(i)).encode())
+        m = hash.hexdigest()
+        if m[0:5] == "00000":
+            if 48 <= ord(m[5]) <= 55:
+                if password[int(m[5])] == "#":
+                    password[int(m[5])] = m[6]
+                    chars += 1
+        if chars == 8:
+            break
+    return "".join(password)
 
 
 if __name__ == "__main__":
