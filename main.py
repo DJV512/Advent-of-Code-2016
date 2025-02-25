@@ -34,7 +34,7 @@ def parse_data():
 
     # return utils.grid_parse(data)
 
-    return 
+    return data
 
 
 def part1(data):
