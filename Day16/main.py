@@ -56,11 +56,9 @@ def find_checksum(data):
     return a
 
 
-
 def part1(data):
     return find_checksum(data)
     
-
 
 def part2(data):
     return find_checksum(data)
